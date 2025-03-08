@@ -32,7 +32,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, scrollToSection }) => {
     { id: 'statistics', label: 'Statistics' },
     { id: 'about', label: 'About' },
     { id: 'faq', label: 'FAQ' },
-    { id: 'outcome', label: 'Outcome' },
+    { id: 'outcome', label: 'Recommendation' },
   ];
 
   return (
@@ -52,8 +52,8 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, scrollToSection }) => {
                   <button
                     onClick={() => scrollToSection(link.id)}
                     className={`text-base font-medium transition-colors duration-300 ${activeSection === link.id
-                        ? 'text-teal-600'
-                        : 'text-gray-700 hover:text-teal-600'
+                      ? 'text-teal-600'
+                      : 'text-gray-700 hover:text-teal-600'
                       }`}
                   >
                     {link.label}
@@ -91,8 +91,8 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, scrollToSection }) => {
                   setIsMenuOpen(false);
                 }}
                 className={`block px-3 py-2 rounded-md text-base font-medium w-full text-left ${activeSection === link.id
-                    ? 'text-teal-600 bg-gray-100'
-                    : 'text-gray-700 hover:text-teal-600 hover:bg-gray-50'
+                  ? 'text-teal-600 bg-gray-100'
+                  : 'text-gray-700 hover:text-teal-600 hover:bg-gray-50'
                   }`}
               >
                 {link.label}
