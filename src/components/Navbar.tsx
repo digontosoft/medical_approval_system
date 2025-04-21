@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Activity, Menu, X } from 'lucide-react';
+import { Activity, Menu, X, Shield } from 'lucide-react';
 
 interface NavbarProps {
   activeSection: string;
@@ -31,6 +31,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, scrollToSection }) => {
     { id: 'home', label: 'Home' },
     { id: 'statistics', label: 'Statistics' },
     { id: 'about', label: 'About' },
+    { id: 'submission', label: 'Submit Software' },
     { id: 'faq', label: 'FAQ' },
     { id: 'outcome', label: 'Recommendation' },
   ];
@@ -60,6 +61,15 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, scrollToSection }) => {
                   </button>
                 </li>
               ))}
+              <li>
+                <button
+                  onClick={() => scrollToSection('admin')}
+                  className="flex items-center text-base font-medium text-gray-700 hover:text-teal-600 transition-colors duration-300"
+                >
+                  <Shield className="h-4 w-4 mr-1" />
+                  Admin
+                </button>
+              </li>
             </ul>
           </nav>
 
@@ -98,6 +108,16 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, scrollToSection }) => {
                 {link.label}
               </button>
             ))}
+            <button
+              onClick={() => {
+                scrollToSection('admin');
+                setIsMenuOpen(false);
+              }}
+              className="flex items-center px-3 py-2 rounded-md text-base font-medium w-full text-left text-gray-700 hover:text-teal-600 hover:bg-gray-50"
+            >
+              <Shield className="h-4 w-4 mr-2" />
+              Admin
+            </button>
           </div>
         </div>
       )}
