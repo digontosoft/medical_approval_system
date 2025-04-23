@@ -1,44 +1,42 @@
 import React, { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-// interface AdminLoginProps {
-//   onLogin: () => void;
-// }
+interface UserRegistrationProps {
+  onSignUp: () => void;
+}
 
-const AdminLogin: React.FC = () => {
+const RegistrationForm: React.FC<UserRegistrationProps> = ({ onSignUp }) => {
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setIsLoading(true);
-    const payload = {
-      username: "admin",
-      password: "password123",
-    };
 
-    setTimeout(() => {
-      if (username === "admin" && password === "password123") {
-        localStorage.setItem("medApprovalAdminAuth", JSON.stringify(payload));
-        navigate("/admin"); // Add this line to redirect after successful login
-      } else {
-        setError("Invalid username or password");
-      }
-      setIsLoading(false);
-    }, 800);
+    // For demo purposes, use a simple hardcoded credential check
+    // In a real application, this would call an API endpoint
+    // setTimeout(() => {
+    //   if (username === "admin" && password === "password123") {
+    //     onLogin();
+    //   } else {
+    //     setError("Invalid username or password");
+    //   }
+    //   setIsLoading(false);
+    // }, 800);
   };
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Admin Login
+          Sign Up
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
-          Please sign in to access the admin dashboard
+          Please sign up to access the user part
         </p>
       </div>
 
@@ -88,6 +86,26 @@ const AdminLogin: React.FC = () => {
                 />
               </div>
             </div>
+            <div>
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Email
+              </label>
+              <div className="mt-1">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
+                />
+              </div>
+            </div>
 
             <div>
               <label
@@ -118,7 +136,7 @@ const AdminLogin: React.FC = () => {
                   isLoading ? "opacity-70 cursor-not-allowed" : ""
                 }`}
               >
-                {isLoading ? "Signing in..." : "Sign in"}
+                {isLoading ? "Signing Up..." : "Sign Up"}
               </button>
             </div>
           </form>
@@ -130,17 +148,16 @@ const AdminLogin: React.FC = () => {
               </div>
               <div className="relative flex justify-center text-sm">
                 <span className="px-2 bg-white text-gray-500">
-                  Demo credentials
+                  Or continue with
                 </span>
               </div>
             </div>
             <div className="mt-4 text-center text-sm text-gray-600">
               <p>
-                Username: <span className="font-mono text-teal-600">admin</span>
-              </p>
-              <p>
-                Password:{" "}
-                <span className="font-mono text-teal-600">password123</span>
+                If already sign up please{" "}
+                <Link to="/login">
+                  <span className="font-mono text-teal-600">Login</span>
+                </Link>
               </p>
             </div>
           </div>
@@ -150,4 +167,4 @@ const AdminLogin: React.FC = () => {
   );
 };
 
-export default AdminLogin;
+export default RegistrationForm;

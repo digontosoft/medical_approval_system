@@ -1,13 +1,9 @@
 import React, { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-// interface AdminLoginProps {
-//   onLogin: () => void;
-// }
-
-const AdminLogin: React.FC = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+const LoginForm: React.FC = () => {
+  const [username, setUsername] = useState("user");
+  const [password, setPassword] = useState("password123");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -16,14 +12,14 @@ const AdminLogin: React.FC = () => {
     setError("");
     setIsLoading(true);
     const payload = {
-      username: "admin",
+      username: "user",
       password: "password123",
     };
 
     setTimeout(() => {
-      if (username === "admin" && password === "password123") {
-        localStorage.setItem("medApprovalAdminAuth", JSON.stringify(payload));
-        navigate("/admin"); // Add this line to redirect after successful login
+      if (username === "user" && password === "password123") {
+        localStorage.setItem("medApprovalUserAuth", JSON.stringify(payload));
+        navigate("/"); // Add this line to redirect after successful login
       } else {
         setError("Invalid username or password");
       }
@@ -35,10 +31,10 @@ const AdminLogin: React.FC = () => {
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Admin Login
+          Login
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
-          Please sign in to access the admin dashboard
+          Please sign in to access the user part
         </p>
       </div>
 
@@ -130,17 +126,16 @@ const AdminLogin: React.FC = () => {
               </div>
               <div className="relative flex justify-center text-sm">
                 <span className="px-2 bg-white text-gray-500">
-                  Demo credentials
+                  Or continue with
                 </span>
               </div>
             </div>
             <div className="mt-4 text-center text-sm text-gray-600">
               <p>
-                Username: <span className="font-mono text-teal-600">admin</span>
-              </p>
-              <p>
-                Password:{" "}
-                <span className="font-mono text-teal-600">password123</span>
+                If don't have an account please{" "}
+                <Link to="/sign-up">
+                  <span className="font-mono text-teal-600">Sign Up</span>
+                </Link>
               </p>
             </div>
           </div>
@@ -150,4 +145,4 @@ const AdminLogin: React.FC = () => {
   );
 };
 
-export default AdminLogin;
+export default LoginForm;
