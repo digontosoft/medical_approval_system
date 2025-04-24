@@ -1,30 +1,38 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { base_url } from "../constant";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const LoginForm: React.FC = () => {
-  const [username, setUsername] = useState("user");
-  const [password, setPassword] = useState("password123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setIsLoading(true);
-    const payload = {
-      username: "user",
-      password: "password123",
-    };
 
-    setTimeout(() => {
-      if (username === "user" && password === "password123") {
-        localStorage.setItem("medApprovalUserAuth", JSON.stringify(payload));
-        navigate("/"); // Add this line to redirect after successful login
-      } else {
-        setError("Invalid username or password");
-      }
-      setIsLoading(false);
-    }, 800);
+    try {
+      setIsLoading(true);
+      const payload = {
+        email,
+        password,
+      };
+      await axios.post(`${base_url}/login`, payload).then((response) => {
+        if (response.status === 200) {
+          const loginToken = response.data.token;
+          localStorage.setItem("token", JSON.stringify(loginToken));
+          toast.success("Login successful");
+          setIsLoading(false);
+          navigate("/");
+        }
+      });
+    } catch (error) {
+      console.log("registration error:", error);
+    }
   };
 
   return (
@@ -66,20 +74,20 @@ const LoginForm: React.FC = () => {
 
             <div>
               <label
-                htmlFor="username"
+                htmlFor="email"
                 className="block text-sm font-medium text-gray-700"
               >
-                Username
+                Email
               </label>
               <div className="mt-1">
                 <input
-                  id="username"
-                  name="username"
+                  id="email"
+                  name="email"
                   type="text"
-                  autoComplete="username"
+                  autoComplete="email"
                   required
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
                 />
               </div>

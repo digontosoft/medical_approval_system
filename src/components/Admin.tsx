@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AdminLogin from "./AdminLogin";
 import AdminPanel from "./AdminPanel";
+import RequestLists from "../pages/dashboard/requestlists/RequestLists";
 
 const Admin = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -26,7 +27,7 @@ const Admin = () => {
   return (
     <div>
       {/* {isAuthenticated ? <AdminPanel /> : <AdminLogin  />} */}
-      <AdminPanel />
+      <RequestLists />
     </div>
   );
 };

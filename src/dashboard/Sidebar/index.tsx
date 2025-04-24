@@ -64,7 +64,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
       label: "Orders",
       icon: <Book />,
       links: [
-        { to: "/admin", label: "Dashboard" },
         { to: "/request-lists", label: "Request Lists" },
         { to: "/approved-lsits", label: "Approved Lists" },
         { to: "/statistics", label: "Statistics" },

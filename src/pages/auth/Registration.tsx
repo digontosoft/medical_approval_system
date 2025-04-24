@@ -3,7 +3,7 @@ import RegistrationForm from "../../components/RegistrationForm";
 const Registration = () => {
   return (
     <div>
-      <RegistrationForm onSignUp={() => {}} />
+      <RegistrationForm />
     </div>
   );
 };

@@ -1,32 +1,43 @@
+import axios from "axios";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { base_url } from "../constant";
+import { toast } from "react-toastify";
 
-interface UserRegistrationProps {
-  onSignUp: () => void;
-}
-
-const RegistrationForm: React.FC<UserRegistrationProps> = ({ onSignUp }) => {
-  const [username, setUsername] = useState("");
+const RegistrationForm: React.FC = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const navigate = useNavigate();
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    setIsLoading(true);
 
-    // For demo purposes, use a simple hardcoded credential check
-    // In a real application, this would call an API endpoint
-    // setTimeout(() => {
-    //   if (username === "admin" && password === "password123") {
-    //     onLogin();
-    //   } else {
-    //     setError("Invalid username or password");
-    //   }
-    //   setIsLoading(false);
-    // }, 800);
+    try {
+      setIsLoading(true);
+      const payload = {
+        firstName,
+        lastName,
+        phoneNumber,
+        email,
+        password,
+      };
+      await axios.post(`${base_url}/register`, payload).then((response) => {
+        if (response.status === 201) {
+          toast.success("Registration successful");
+          console.log("Registration successful:", response.data);
+          setIsLoading(false);
+          navigate("/login");
+        }
+      });
+      console.log("registration:", payload);
+    } catch (error) {
+      console.log("registration error:", error);
+    }
   };
 
   return (
@@ -68,20 +79,40 @@ const RegistrationForm: React.FC<UserRegistrationProps> = ({ onSignUp }) => {
 
             <div>
               <label
-                htmlFor="username"
+                htmlFor="firstName"
                 className="block text-sm font-medium text-gray-700"
               >
-                Username
+                First Name
               </label>
               <div className="mt-1">
                 <input
-                  id="username"
-                  name="username"
+                  id="firstName"
+                  name="firstName"
                   type="text"
-                  autoComplete="username"
+                  autoComplete="firstName"
                   required
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
+                />
+              </div>
+            </div>
+            <div>
+              <label
+                htmlFor="lastName"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Last Name
+              </label>
+              <div className="mt-1">
+                <input
+                  id="lastName"
+                  name="lastName"
+                  type="text"
+                  autoComplete="lastName"
+                  required
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
                 />
               </div>
@@ -102,6 +133,26 @@ const RegistrationForm: React.FC<UserRegistrationProps> = ({ onSignUp }) => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
+                />
+              </div>
+            </div>
+            <div>
+              <label
+                htmlFor="phoneNumber"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Phone Number
+              </label>
+              <div className="mt-1">
+                <input
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  type="text"
+                  autoComplete="phoneNumber"
+                  required
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
                 />
               </div>
