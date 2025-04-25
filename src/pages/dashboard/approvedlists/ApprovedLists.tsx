@@ -221,9 +221,9 @@ const ApprovedLists = () => {
               <th className="px-6 py-3 text-left text-sm font-medium text-gray-700 uppercase">
                 Email
               </th>
-              {/* <th className="px-6 py-3 text-left text-sm font-medium text-gray-700 uppercase">
-                Medical Use Cases
-              </th> */}
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-700 uppercase">
+                Risk Level
+              </th>
               <th className="px-6 py-3 text-left text-sm font-medium text-gray-700 uppercase">
                 Version
               </th>
@@ -245,7 +245,8 @@ const ApprovedLists = () => {
                       {software?.name}
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-600">
-                      {software?.details}
+                      {software?.details?.slice(0, 50)}
+                      {software?.details?.length > 50 && "..."}
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-600">
                       {software?.contactPerson}
@@ -255,11 +256,11 @@ const ApprovedLists = () => {
                         {software?.emailAddress}
                       </span>
                     </td>
-                    {/* <td>
-                  <span className="text-sm font-semibold text-red-600 bg-red-200 p-1 rounded-md">
-                    {software?.medicalUseCases}
-                  </span>
-                </td> */}
+                    <td className="">
+                      <span className="text-sm font-semibold text-red-600 bg-red-200 p-1 rounded-md">
+                        {software?.riskLevel}
+                      </span>
+                    </td>
                     <td className="">
                       <span className="text-sm font-semibold text-red-600 bg-red-200 p-1 rounded-md">
                         {software?.version}

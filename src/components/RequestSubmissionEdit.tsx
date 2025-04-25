@@ -13,6 +13,8 @@ const RequestSubmissionEdit = ({ open, onClose, requestData }) => {
     emailAddress: "",
     medicalUseCases: "",
     status: "",
+    repository_url: "",
+    riskLevel: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -27,6 +29,8 @@ const RequestSubmissionEdit = ({ open, onClose, requestData }) => {
       medicalUseCases: requestData?.medicalUseCases || "",
       emailAddress: requestData?.emailAddress || "",
       status: requestData?.status || "",
+      repository_url: requestData?.repository_url || "",
+      riskLevel: requestData?.riskLevel || "",
     });
   }, [requestData, open]);
 
@@ -102,6 +106,7 @@ const RequestSubmissionEdit = ({ open, onClose, requestData }) => {
                   Software Name *
                 </label>
                 <input
+                  disabled
                   type="text"
                   name="name"
                   id="name"
@@ -120,6 +125,7 @@ const RequestSubmissionEdit = ({ open, onClose, requestData }) => {
                   Software Details *
                 </label>
                 <textarea
+                  disabled
                   name="details"
                   id="details"
                   rows={4}
@@ -139,6 +145,7 @@ const RequestSubmissionEdit = ({ open, onClose, requestData }) => {
                   Software Version *
                 </label>
                 <input
+                  disabled
                   type="text"
                   name="version"
                   id="version"
@@ -157,11 +164,31 @@ const RequestSubmissionEdit = ({ open, onClose, requestData }) => {
                   Medical Use Cases *
                 </label>
                 <textarea
+                  disabled
                   name="medicalUseCases"
                   id="medicalUseCases"
                   rows={3}
                   required
                   value={formData.medicalUseCases}
+                  onChange={handleChange}
+                  className="mt-1 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 px-3 py-2"
+                  placeholder="Describe specific medical scenarios where your software would be used"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="medicalUseCases"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Risk Level *
+                </label>
+                <textarea
+                  disabled
+                  name="medicalUseCases"
+                  id="medicalUseCases"
+                  rows={3}
+                  required
+                  value={formData.riskLevel}
                   onChange={handleChange}
                   className="mt-1 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 px-3 py-2"
                   placeholder="Describe specific medical scenarios where your software would be used"
@@ -176,11 +203,30 @@ const RequestSubmissionEdit = ({ open, onClose, requestData }) => {
                   Contact Person *
                 </label>
                 <input
+                  disabled
                   type="text"
                   name="contactPerson"
                   id="contactPerson"
                   required
                   value={formData.contactPerson}
+                  onChange={handleChange}
+                  className="mt-1 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 px-3 py-2"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="repositoryUrl"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Repository Url *
+                </label>
+                <input
+                  disabled
+                  type="text"
+                  name="repositoryUrl"
+                  id="repositoryUrl"
+                  required
+                  value={formData.repository_url}
                   onChange={handleChange}
                   className="mt-1 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 px-3 py-2"
                 />
@@ -194,6 +240,7 @@ const RequestSubmissionEdit = ({ open, onClose, requestData }) => {
                   Email Address *
                 </label>
                 <input
+                  disabled
                   type="emailAddress"
                   name="emailAddress"
                   id="emailAddress"
@@ -220,27 +267,11 @@ const RequestSubmissionEdit = ({ open, onClose, requestData }) => {
                   <option value="" disabled>
                     Selecet Option
                   </option>
+                  <option value="pending">Pending</option>
                   <option value="approved">Approved</option>
                   <option value="reject">Rejected</option>
                 </select>
               </div>
-              {/* <div>
-            <label
-              htmlFor="file"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Upload File *
-            </label>
-            <input
-              type="file"
-              name="file"
-              id="file"
-              required
-              onChange={handleChange}
-              className="mt-1 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 px-3 py-2"
-            />
-          </div> */}
-
               <div className="flex items-center justify-end">
                 <button
                   type="submit"

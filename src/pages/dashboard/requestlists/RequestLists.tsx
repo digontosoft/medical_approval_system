@@ -87,85 +87,6 @@ const RequestLists = () => {
     }
   };
 
-  const handleApprove = async (softwareId) => {
-    const result = await Swal.fire({
-      title: "Are you sure approve this request?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    });
-
-    const payload = {
-      requestStatus: "Approve",
-    };
-
-    if (result.isConfirmed) {
-      try {
-        const response = await axios.put(
-          `${base_url}/software/${softwareId}`,
-          payload
-        );
-        if (response.status === 200) {
-          Swal.fire("Approved!", "Request has been approved.", "success");
-          setSoftwares((prevSoftware) =>
-            prevSoftware.filter((software) => software._id !== softwareId)
-          );
-        } else {
-          Swal.fire("Error!", "Failed to apporved.", "error");
-        }
-      } catch (error) {
-        Swal.fire(
-          "Error!",
-          error.response?.data?.message ||
-            "Something went wrong while approving.",
-          "error"
-        );
-      }
-    }
-  };
-  const handleReject = async (softwareId) => {
-    const result = await Swal.fire({
-      title: "Are you sure reject this request?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    });
-
-    const payload = {
-      requestStatus: "Reject",
-    };
-
-    if (result.isConfirmed) {
-      try {
-        const response = await axios.put(
-          `${base_url}/software/${softwareId}`,
-          payload
-        );
-        if (response.status === 200) {
-          Swal.fire("Rejected!", "Request has been rejected.", "success");
-          setSoftwares((prevSoftware) =>
-            prevSoftware.filter((software) => software._id !== softwareId)
-          );
-        } else {
-          Swal.fire("Error!", "Failed to rejected.", "error");
-        }
-      } catch (error) {
-        Swal.fire(
-          "Error!",
-          error.response?.data?.message ||
-            "Something went wrong while rejecting.",
-          "error"
-        );
-      }
-    }
-  };
-
   const handleOpenModal = (request) => {
     setSelectedRequest(request);
     setIsOpenModal(true);
@@ -221,9 +142,9 @@ const RequestLists = () => {
               <th className="px-6 py-3 text-left text-sm font-medium text-gray-700 uppercase">
                 Email
               </th>
-              {/* <th className="px-6 py-3 text-left text-sm font-medium text-gray-700 uppercase">
-                Medical Use Cases
-              </th> */}
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-700 uppercase">
+                Risk Level
+              </th>
               <th className="px-6 py-3 text-left text-sm font-medium text-gray-700 uppercase">
                 Version
               </th>
@@ -238,14 +159,15 @@ const RequestLists = () => {
           <tbody className="bg-white divide-y divide-gray-200">
             {softwares.length > 0 &&
               softwares
-                .filter((software) => software?.status === "reject")
+                .filter((software) => software?.status === "pending")
                 .map((software) => (
                   <tr key={software?._id}>
                     <td className="px-6 py-4 text-sm text-gray-900">
                       {software?.name}
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-600">
-                      {software?.details}
+                      {software?.details?.slice(0, 50)}
+                      {software?.details?.length > 50 && "..."}
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-600">
                       {software?.contactPerson}
@@ -255,11 +177,11 @@ const RequestLists = () => {
                         {software?.emailAddress}
                       </span>
                     </td>
-                    {/* <td className="">
-                  <span className="text-sm font-semibold text-red-600 bg-red-200 p-1 rounded-md">
-                    {software?.medicalUseCases}
-                  </span>
-                </td> */}
+                    <td className="">
+                      <span className="text-sm font-semibold text-red-600 bg-red-200 p-1 rounded-md">
+                        {software?.riskLevel}
+                      </span>
+                    </td>
                     <td className="">
                       <span className="text-sm font-semibold text-red-600 bg-red-200 p-1 rounded-md">
                         {software?.version}
@@ -278,7 +200,9 @@ const RequestLists = () => {
                         <Eye />
                       </button>
                       <button
-                        onClick={() => handleOpenRequestEditModal(software)}
+                        onClick={() => {
+                          handleOpenRequestEditModal(software);
+                        }}
                         className="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
                       >
                         <Edit />
@@ -289,18 +213,6 @@ const RequestLists = () => {
                       >
                         <Trash />
                       </button>
-                      {/* <button
-                    onClick={() => handleApprove(software)}
-                    className="px-3 py-1 bg-green-200 text-green-600 rounded-md hover:bg-green-300 transition-colors"
-                  >
-                    Approve
-                  </button>
-                  <button
-                    onClick={() => handleReject(software)}
-                    className="px-3 py-1 bg-red-200 text-red-600 rounded-md hover:bg-red-300 transition-colors"
-                  >
-                    Reject
-                  </button> */}
                     </td>
                   </tr>
                 ))}
