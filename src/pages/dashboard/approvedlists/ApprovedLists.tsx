@@ -236,65 +236,61 @@ const ApprovedLists = () => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {softwares.map((software) => (
-              <tr key={software?._id}>
-                <td className="px-6 py-4 text-sm text-gray-900">
-                  {software?.name}
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-600">
-                  {software?.details}
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-600">
-                  {software?.contactPerson}
-                </td>
-                <td className="">
-                  <span className="text-sm font-semibold text-red-600 bg-red-200 p-1 rounded-md">
-                    {software?.emailAddress}
-                  </span>
-                </td>
-                {/* <td>
+            {softwares
+              .filter((software) => software?.status === "approved")
+              .map((software) => (
+                <tr key={software?._id}>
+                  <td className="px-6 py-4 text-sm text-gray-900">
+                    {software?.name}
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-600">
+                    {software?.details}
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-600">
+                    {software?.contactPerson}
+                  </td>
+                  <td className="">
+                    <span className="text-sm font-semibold text-red-600 bg-red-200 p-1 rounded-md">
+                      {software?.emailAddress}
+                    </span>
+                  </td>
+                  {/* <td>
                   <span className="text-sm font-semibold text-red-600 bg-red-200 p-1 rounded-md">
                     {software?.medicalUseCases}
                   </span>
                 </td> */}
-                <td className="">
-                  <span className="text-sm font-semibold text-red-600 bg-red-200 p-1 rounded-md">
-                    {software?.version}
-                  </span>
-                </td>
-                <td className="">
-                  <span className="text-sm font-semibold text-green-600 bg-green-200 p-1 rounded-md">
-                    Approved
-                  </span>
-                </td>
-                <td className="py-4 text-sm flex items-center gap-2">
-                  <button
-                    onClick={() => handleOpenModal(software)}
-                    className="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-                  >
-                    <Eye />
-                  </button>
-                  <button
-                    onClick={() => handleOpenRequestEditModal(software)}
-                    className="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-                  >
-                    <Edit />
-                  </button>
-                  <button
-                    onClick={() => handleDelete(software?._id)}
-                    className="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-                  >
-                    <Trash />
-                  </button>
-                  {/* <button
-                    onClick={() => handleReject(software)}
-                    className="px-3 py-1 bg-red-200 text-red-600 rounded-md hover:bg-red-300 transition-colors"
-                  >
-                    Reject
-                  </button> */}
-                </td>
-              </tr>
-            ))}
+                  <td className="">
+                    <span className="text-sm font-semibold text-red-600 bg-red-200 p-1 rounded-md">
+                      {software?.version}
+                    </span>
+                  </td>
+                  <td className="">
+                    <span className="text-sm font-semibold text-green-600 bg-green-200 p-1 rounded-md">
+                      Approved
+                    </span>
+                  </td>
+                  <td className="py-4 text-sm flex items-center gap-2">
+                    <button
+                      onClick={() => handleOpenModal(software)}
+                      className="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                    >
+                      <Eye />
+                    </button>
+                    <button
+                      onClick={() => handleOpenRequestEditModal(software)}
+                      className="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                    >
+                      <Edit />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(software?._id)}
+                      className="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                    >
+                      <Trash />
+                    </button>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>

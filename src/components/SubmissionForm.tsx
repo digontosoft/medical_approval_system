@@ -11,7 +11,7 @@ const SubmissionForm = () => {
     contactPerson: "",
     emailAddress: "",
     medicalUseCases: "",
-    // file: null,
+    repository_url: "",
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -181,6 +181,24 @@ const SubmissionForm = () => {
             />
           </div>
 
+          <div>
+            <label
+              htmlFor="repository_url"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Repository Link *
+            </label>
+            <input
+              type="text"
+              placeholder="https://github.com/octocat/Hello-World"
+              name="repository_url"
+              id="repository_url"
+              required
+              value={formData.repository_url}
+              onChange={handleChange}
+              className="mt-1 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 px-3 py-2"
+            />
+          </div>
           <div>
             <label
               htmlFor="contactPerson"

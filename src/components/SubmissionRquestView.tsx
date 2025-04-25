@@ -73,6 +73,14 @@ const SubmissionRequestView = ({ open, onClose, requestData }) => {
                     {requestData?.version}
                   </p>
                 </div>
+                <div>
+                  <h3 className="text-sm font-medium text-gray-500">
+                    Repository Link
+                  </h3>
+                  <p className="mt-1 text-sm text-gray-900">
+                    {requestData?.repository_url}
+                  </p>
+                </div>
 
                 {/* <div>
                   <h3 className="text-sm font-medium text-gray-500">Status</h3>

@@ -12,6 +12,7 @@ const RequestSubmissionEdit = ({ open, onClose, requestData }) => {
     contactPerson: "",
     emailAddress: "",
     medicalUseCases: "",
+    status: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -25,6 +26,7 @@ const RequestSubmissionEdit = ({ open, onClose, requestData }) => {
       contactPerson: requestData?.contactPerson || "",
       medicalUseCases: requestData?.medicalUseCases || "",
       emailAddress: requestData?.emailAddress || "",
+      status: requestData?.status || "",
     });
   }, [requestData, open]);
 
@@ -200,6 +202,27 @@ const RequestSubmissionEdit = ({ open, onClose, requestData }) => {
                   onChange={handleChange}
                   className="mt-1 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 px-3 py-2"
                 />
+              </div>
+              <div>
+                <label
+                  htmlFor="emailAddress"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Update Status *
+                </label>
+                <select
+                  id="status"
+                  name="status"
+                  value={formData.status}
+                  onChange={handleChange}
+                  className="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm rounded-md"
+                >
+                  <option value="" disabled>
+                    Selecet Option
+                  </option>
+                  <option value="approved">Approved</option>
+                  <option value="reject">Rejected</option>
+                </select>
               </div>
               {/* <div>
             <label

@@ -16,79 +16,6 @@ const RequestLists = () => {
   const [allSoftwares, setAllSoftwares] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const data = [
-    {
-      id: 1,
-      name: "John Doe",
-      contact: "john@example.com",
-      submitDate: "2023-09-15",
-      status: "Pending",
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      contact: "jane@example.com",
-      submitDate: "2023-10-02",
-      status: "Pending",
-    },
-    {
-      id: 3,
-      name: "Alice Johnson",
-      contact: "alice@example.com",
-      submitDate: "2023-11-20",
-      status: "Pending",
-    },
-    {
-      id: 4,
-      name: "Michael Brown",
-      contact: "michael@example.com",
-      submitDate: "2023-12-01",
-      status: "Pending",
-    },
-    {
-      id: 5,
-      name: "Emily Davis",
-      contact: "emily@example.com",
-      submitDate: "2023-12-15",
-      status: "Pending",
-    },
-    {
-      id: 6,
-      name: "Daniel Wilson",
-      contact: "daniel@example.com",
-      submitDate: "2024-01-05",
-      status: "Pending",
-    },
-    {
-      id: 7,
-      name: "Sophia Miller",
-      contact: "sophia@example.com",
-      submitDate: "2024-01-22",
-      status: "Pending",
-    },
-    {
-      id: 8,
-      name: "Chris Martin",
-      contact: "chris@example.com",
-      submitDate: "2024-02-10",
-      status: "Pending",
-    },
-    {
-      id: 9,
-      name: "Olivia Clark",
-      contact: "olivia@example.com",
-      submitDate: "2024-03-01",
-      status: "Pending",
-    },
-    {
-      id: 10,
-      name: "David Lee",
-      contact: "david@example.com",
-      submitDate: "2024-03-18",
-      status: "Pending",
-    },
-  ];
-
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -309,57 +236,59 @@ const RequestLists = () => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {softwares.map((software) => (
-              <tr key={software?._id}>
-                <td className="px-6 py-4 text-sm text-gray-900">
-                  {software?.name}
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-600">
-                  {software?.details}
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-600">
-                  {software?.contactPerson}
-                </td>
-                <td className="">
-                  <span className="text-sm font-semibold text-red-600 bg-red-200 p-1 rounded-md">
-                    {software?.emailAddress}
-                  </span>
-                </td>
-                {/* <td className="">
+            {softwares
+              .filter((software) => software?.status === "reject")
+              .map((software) => (
+                <tr key={software?._id}>
+                  <td className="px-6 py-4 text-sm text-gray-900">
+                    {software?.name}
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-600">
+                    {software?.details}
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-600">
+                    {software?.contactPerson}
+                  </td>
+                  <td className="">
+                    <span className="text-sm font-semibold text-red-600 bg-red-200 p-1 rounded-md">
+                      {software?.emailAddress}
+                    </span>
+                  </td>
+                  {/* <td className="">
                   <span className="text-sm font-semibold text-red-600 bg-red-200 p-1 rounded-md">
                     {software?.medicalUseCases}
                   </span>
                 </td> */}
-                <td className="">
-                  <span className="text-sm font-semibold text-red-600 bg-red-200 p-1 rounded-md">
-                    {software?.version}
-                  </span>
-                </td>
-                <td className="">
-                  <span className="text-sm font-semibold text-red-600 bg-red-200 p-1 rounded-md">
-                    Pending
-                  </span>
-                </td>
-                <td className="py-4 text-sm flex items-center gap-2">
-                  <button
-                    onClick={() => handleOpenModal(software)}
-                    className="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-                  >
-                    <Eye />
-                  </button>
-                  <button
-                    onClick={() => handleOpenRequestEditModal(software)}
-                    className="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-                  >
-                    <Edit />
-                  </button>
-                  <button
-                    onClick={() => handleDelete(software?._id)}
-                    className="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-                  >
-                    <Trash />
-                  </button>
-                  <button
+                  <td className="">
+                    <span className="text-sm font-semibold text-red-600 bg-red-200 p-1 rounded-md">
+                      {software?.version}
+                    </span>
+                  </td>
+                  <td className="">
+                    <span className="text-sm font-semibold text-red-600 bg-red-200 p-1 rounded-md">
+                      {software?.status}
+                    </span>
+                  </td>
+                  <td className="py-4 text-sm flex items-center gap-2">
+                    <button
+                      onClick={() => handleOpenModal(software)}
+                      className="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                    >
+                      <Eye />
+                    </button>
+                    <button
+                      onClick={() => handleOpenRequestEditModal(software)}
+                      className="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                    >
+                      <Edit />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(software?._id)}
+                      className="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                    >
+                      <Trash />
+                    </button>
+                    {/* <button
                     onClick={() => handleApprove(software)}
                     className="px-3 py-1 bg-green-200 text-green-600 rounded-md hover:bg-green-300 transition-colors"
                   >
@@ -370,10 +299,10 @@ const RequestLists = () => {
                     className="px-3 py-1 bg-red-200 text-red-600 rounded-md hover:bg-red-300 transition-colors"
                   >
                     Reject
-                  </button>
-                </td>
-              </tr>
-            ))}
+                  </button> */}
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
